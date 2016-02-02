@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="DATA" type="DATAType"/>
+
+    <xs:complexType name="SECTION_UNITSType">
+        <xs:sequence>
+            <xs:element type="UNITType" name="UNIT" maxOccurs="unbounded" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="UNITType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute type="xs:string" name="_id" use="optional"/>
+                <xs:attribute type="xs:string" name="guid" use="optional"/>
+                <xs:attribute type="xs:string" name="name" use="optional"/>
+                <xs:attribute type="xs:string" name="gramm" use="optional"/>
+                <xs:attribute type="xs:string" name="edit" use="optional"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="RECORDType" mixed="true">
+        <xs:sequence>
+            <xs:element type="SECTION_RECORDS_TABType" name="SECTION_RECORDS_TAB" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attribute type="xs:string" name="_id" use="optional"/>
+        <xs:attribute type="xs:string" name="date" use="optional"/>
+        <xs:attribute type="xs:string" name="time" use="optional"/>
+        <xs:attribute type="xs:string" name="glu_guid" use="optional"/>
+        <xs:attribute type="xs:string" name="glu_koef" use="optional"/>
+        <xs:attribute type="xs:string" name="glu_manual" use="optional"/>
+        <xs:attribute type="xs:string" name="sk1" use="optional"/>
+        <xs:attribute type="xs:string" name="sk2" use="optional"/>
+        <xs:attribute type="xs:string" name="he" use="optional"/>
+        <xs:attribute type="xs:string" name="bzhe" use="optional"/>
+        <xs:attribute type="xs:string" name="gi" use="optional"/>
+        <xs:attribute type="xs:string" name="kkal" use="optional"/>
+        <xs:attribute type="xs:string" name="ki" use="optional"/>
+        <xs:attribute type="xs:string" name="ki1" use="optional"/>
+        <xs:attribute type="xs:string" name="ki2" use="optional"/>
+        <xs:attribute type="xs:string" name="di" use="optional"/>
+        <xs:attribute type="xs:string" name="is_calculated" use="optional"/>
+        <xs:attribute type="xs:string" name="k1" use="optional"/>
+        <xs:attribute type="xs:string" name="cei" use="optional"/>
+        <xs:attribute type="xs:string" name="k2" use="optional"/>
+        <xs:attribute type="xs:string" name="csk" use="optional"/>
+        <xs:attribute type="xs:string" name="ki_ras1" use="optional"/>
+        <xs:attribute type="xs:string" name="ki_ras2" use="optional"/>
+        <xs:attribute type="xs:string" name="ki_ras3" use="optional"/>
+        <xs:attribute type="xs:string" name="ki_ras4" use="optional"/>
+        <xs:attribute type="xs:string" name="ki_ras5" use="optional"/>
+        <xs:attribute type="xs:string" name="ki_ras6" use="optional"/>
+        <xs:attribute type="xs:string" name="ki_ras7" use="optional"/>
+        <xs:attribute type="xs:string" name="fn" use="optional"/>
+        <xs:attribute type="xs:string" name="guidfn" use="optional"/>
+        <xs:attribute type="xs:string" name="minfn" use="optional"/>
+        <xs:attribute type="xs:string" name="coment" use="optional"/>
+        <xs:attribute type="xs:string" name="sort" use="optional"/>
+        <xs:attribute type="xs:string" name="divide" use="optional"/>
+        <xs:attribute type="xs:string" name="isnotify" use="optional"/>
+        <xs:attribute type="xs:string" name="timenotify" use="optional"/>
+        <xs:attribute type="xs:string" name="textnotify" use="optional"/>
+        <xs:attribute type="xs:string" name="vibro" use="optional"/>
+        <xs:attribute type="xs:string" name="soundrepeat" use="optional"/>
+        <xs:attribute type="xs:string" name="countrepeat" use="optional"/>
+        <xs:attribute type="xs:string" name="guid_profile" use="optional"/>
+        <xs:attribute type="xs:string" name="place_figners" use="optional"/>
+        <xs:attribute type="xs:string" name="place_stomach" use="optional"/>
+        <xs:attribute type="xs:string" name="place_feet" use="optional"/>
+        <xs:attribute type="xs:string" name="place_coment" use="optional"/>
+    </xs:complexType>
+    <xs:complexType name="DATAType">
+        <xs:sequence>
+            <xs:element type="SECTION_PERSONAL_SETTINGSType" name="SECTION_PERSONAL_SETTINGS"/>
+            <xs:element type="SECTION_DIAGRAMM_SETTINGSType" name="SECTION_DIAGRAMM_SETTINGS"/>
+            <xs:element type="SECTION_DAILY_PROFILESType" name="SECTION_DAILY_PROFILES"/>
+            <xs:element type="SECTION_GLUCOMETERSType" name="SECTION_GLUCOMETERS"/>
+            <xs:element type="SECTION_PRODUCTSType" name="SECTION_PRODUCTS"/>
+            <xs:element type="SECTION_UNITSType" name="SECTION_UNITS"/>
+            <xs:element type="SECTION_FNType" name="SECTION_FN"/>
+            <xs:element type="SECTION_PERS_FNType" name="SECTION_PERS_FN"/>
+            <xs:element type="xs:string" name="SECTION_GLIO"/>
+            <xs:element type="SECTION_RECORDSType" name="SECTION_RECORDS"/>
+            <xs:element type="xs:string" name="SECTION_NOTIFY"/>
+            <xs:element type="xs:string" name="SECTION_NOTIFY_DOC"/>
+        </xs:sequence>
+        <xs:attribute type="xs:string" name="date"/>
+        <xs:attribute type="xs:string" name="time"/>
+        <xs:attribute type="xs:string" name="source"/>
+    </xs:complexType>
+    <xs:complexType name="SECTION_PRODUCTSType">
+        <xs:sequence>
+            <xs:element type="PRODUCTType" name="PRODUCT" maxOccurs="unbounded" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="FNType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute type="xs:string" name="_id" use="optional"/>
+                <xs:attribute type="xs:string" name="guid" use="optional"/>
+                <xs:attribute type="xs:string" name="code" use="optional"/>
+                <xs:attribute type="xs:string" name="name" use="optional"/>
+                <xs:attribute type="xs:string" name="edit" use="optional"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="SECTION_SUBPRODUCTSType">
+        <xs:sequence>
+            <xs:element type="SUBPRODUCTType" name="SUBPRODUCT" maxOccurs="unbounded" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SUBPRODUCTType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute type="xs:string" name="_id" use="optional"/>
+                <xs:attribute type="xs:string" name="guidparent" use="optional"/>
+                <xs:attribute type="xs:string" name="guidproduct" use="optional"/>
+                <xs:attribute type="xs:string" name="name" use="optional"/>
+                <xs:attribute type="xs:string" name="unit" use="optional"/>
+                <xs:attribute type="xs:string" name="guidunit" use="optional"/>
+                <xs:attribute type="xs:string" name="count" use="optional"/>
+                <xs:attribute type="xs:string" name="edit" use="optional"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="SECTION_DAILY_PROFILESType">
+        <xs:sequence>
+            <xs:element type="PROFILEType" name="PROFILE"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="GLUCOMETERType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute type="xs:string" name="_id" use="optional"/>
+                <xs:attribute type="xs:string" name="guid" use="optional"/>
+                <xs:attribute type="xs:string" name="name" use="optional"/>
+                <xs:attribute type="xs:string" name="type" use="optional"/>
+                <xs:attribute type="xs:string" name="sk1" use="optional"/>
+                <xs:attribute type="xs:string" name="sk2" use="optional"/>
+                <xs:attribute type="xs:string" name="koef1" use="optional"/>
+                <xs:attribute type="xs:string" name="koef2" use="optional"/>
+                <xs:attribute type="xs:string" name="koef3" use="optional"/>
+                <xs:attribute type="xs:string" name="edit" use="optional"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="SECTION_GLUCOMETERSType">
+        <xs:sequence>
+            <xs:element type="GLUCOMETERType" name="GLUCOMETER" maxOccurs="unbounded" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="PERS_FNType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute type="xs:string" name="_id" use="optional"/>
+                <xs:attribute type="xs:string" name="guid" use="optional"/>
+                <xs:attribute type="xs:string" name="code" use="optional"/>
+                <xs:attribute type="xs:string" name="guidfn" use="optional"/>
+                <xs:attribute type="xs:string" name="name" use="optional"/>
+                <xs:attribute type="xs:string" name="minfn" use="optional"/>
+                <xs:attribute type="xs:string" name="sk" use="optional"/>
+                <xs:attribute type="xs:string" name="edit" use="optional"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="PROFILEType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute type="xs:string" name="_id"/>
+                <xs:attribute type="xs:string" name="guid"/>
+                <xs:attribute type="xs:string" name="name"/>
+                <xs:attribute type="xs:string" name="time0"/>
+                <xs:attribute type="xs:string" name="time1"/>
+                <xs:attribute type="xs:string" name="time2"/>
+                <xs:attribute type="xs:string" name="time3"/>
+                <xs:attribute type="xs:string" name="time4"/>
+                <xs:attribute type="xs:string" name="time5"/>
+                <xs:attribute type="xs:string" name="time10"/>
+                <xs:attribute type="xs:string" name="time11"/>
+                <xs:attribute type="xs:string" name="k10"/>
+                <xs:attribute type="xs:string" name="k11"/>
+                <xs:attribute type="xs:string" name="k12"/>
+                <xs:attribute type="xs:string" name="k13"/>
+                <xs:attribute type="xs:string" name="k14"/>
+                <xs:attribute type="xs:string" name="k15"/>
+                <xs:attribute type="xs:string" name="cei0"/>
+                <xs:attribute type="xs:string" name="cei1"/>
+                <xs:attribute type="xs:string" name="cei2"/>
+                <xs:attribute type="xs:string" name="cei3"/>
+                <xs:attribute type="xs:string" name="cei4"/>
+                <xs:attribute type="xs:string" name="cei5"/>
+                <xs:attribute type="xs:string" name="schema"/>
+                <xs:attribute type="xs:string" name="typek2"/>
+                <xs:attribute type="xs:string" name="k2"/>
+                <xs:attribute type="xs:string" name="di0"/>
+                <xs:attribute type="xs:string" name="di1"/>
+                <xs:attribute type="xs:string" name="edit"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="SECTION_RECORDS_TABType">
+        <xs:sequence>
+            <xs:element type="RECORD_TABType" name="RECORD_TAB" maxOccurs="unbounded" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="PERSONAL_SETTINGSType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute type="xs:string" name="name" use="optional"/>
+                <xs:attribute type="xs:string" name="value" use="optional"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="SECTION_PERSONAL_SETTINGSType">
+        <xs:sequence>
+            <xs:element type="PERSONAL_SETTINGSType" name="PERSONAL_SETTINGS" maxOccurs="unbounded" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="DIAGRAMM_SETTINGSType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute type="xs:string" name="name" use="optional"/>
+                <xs:attribute type="xs:string" name="value" use="optional"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="SECTION_PERS_FNType">
+        <xs:sequence>
+            <xs:element type="PERS_FNType" name="PERS_FN" maxOccurs="unbounded" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SECTION_FNType">
+        <xs:sequence>
+            <xs:element type="FNType" name="FN" maxOccurs="unbounded" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SECTION_DIAGRAMM_SETTINGSType">
+        <xs:sequence>
+            <xs:element type="DIAGRAMM_SETTINGSType" name="DIAGRAMM_SETTINGS" maxOccurs="unbounded" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SECTION_RECORDSType">
+        <xs:sequence>
+            <xs:element type="RECORDType" name="RECORD" maxOccurs="unbounded" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="RECORD_TABType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute type="xs:string" name="_id" use="optional"/>
+                <xs:attribute type="xs:string" name="idrec" use="optional"/>
+                <xs:attribute type="xs:string" name="date" use="optional"/>
+                <xs:attribute type="xs:string" name="product" use="optional"/>
+                <xs:attribute type="xs:string" name="guidproduct" use="optional"/>
+                <xs:attribute type="xs:string" name="kol" use="optional"/>
+                <xs:attribute type="xs:string" name="he" use="optional"/>
+                <xs:attribute type="xs:string" name="bzhe" use="optional"/>
+                <xs:attribute type="xs:string" name="b" use="optional"/>
+                <xs:attribute type="xs:string" name="zh" use="optional"/>
+                <xs:attribute type="xs:string" name="u" use="optional"/>
+                <xs:attribute type="xs:string" name="gi" use="optional"/>
+                <xs:attribute type="xs:string" name="kkal" use="optional"/>
+                <xs:attribute type="xs:string" name="sort" use="optional"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="PRODUCTType" mixed="true">
+        <xs:sequence>
+            <xs:element type="SECTION_SUBPRODUCTSType" name="SECTION_SUBPRODUCTS" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attribute type="xs:string" name="_id" use="optional"/>
+        <xs:attribute type="xs:string" name="guid" use="optional"/>
+        <xs:attribute type="xs:string" name="code" use="optional"/>
+        <xs:attribute type="xs:string" name="name" use="optional"/>
+        <xs:attribute type="xs:string" name="b" use="optional"/>
+        <xs:attribute type="xs:string" name="zh" use="optional"/>
+        <xs:attribute type="xs:string" name="u" use="optional"/>
+        <xs:attribute type="xs:string" name="b2" use="optional"/>
+        <xs:attribute type="xs:string" name="zh2" use="optional"/>
+        <xs:attribute type="xs:string" name="u2" use="optional"/>
+        <xs:attribute type="xs:string" name="gi" use="optional"/>
+        <xs:attribute type="xs:string" name="kkal" use="optional"/>
+        <xs:attribute type="xs:string" name="gr" use="optional"/>
+        <xs:attribute type="xs:string" name="codeparent" use="optional"/>
+        <xs:attribute type="xs:string" name="guidparent" use="optional"/>
+        <xs:attribute type="xs:string" name="composite" use="optional"/>
+        <xs:attribute type="xs:string" name="complex" use="optional"/>
+        <xs:attribute type="xs:string" name="favorite" use="optional"/>
+        <xs:attribute type="xs:string" name="unit" use="optional"/>
+        <xs:attribute type="xs:string" name="guidunit" use="optional"/>
+        <xs:attribute type="xs:string" name="count" use="optional"/>
+        <xs:attribute type="xs:string" name="portion" use="optional"/>
+        <xs:attribute type="xs:string" name="edit" use="optional"/>
+    </xs:complexType>
+</xs:schema>
