@@ -75,7 +75,7 @@
                 <version>2.1.1</version>
             </plugin>
 
-            <plugin>
+            <!--<plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>jaxb2-maven-plugin</artifactId>
                 <version>2.2</version>
@@ -88,13 +88,13 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <!-- The package of your generated sources -->
+                    &lt;!&ndash; The package of your generated sources &ndash;&gt;
                     <packageName>model</packageName>
-                   <!-- <sources>
+                   &lt;!&ndash; <sources>
                         <source>/home/dbaron/java/projects/myDiabet/src/main/resources/myDiabe3_arhiv.xsd</source>
-                    </sources>-->
+                    </sources>&ndash;&gt;
                 </configuration>
-            </plugin>
+            </plugin>-->
         </plugins>
     </build>
 
@@ -261,6 +261,18 @@
                                     <packagingExcludes>WEB-INF/lib/javax.faces*</packagingExcludes>
                                     <warSourceExcludes>WEB-INF/lib/javax.faces*</warSourceExcludes>
                                 </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <version>2.4</version>
+                        <executions>
+                            <execution>
+                                <id>copy-dependencies</id>
+                                <phase>package</phase>
+                                <goals><goal>copy-dependencies</goal></goals>
                             </execution>
                         </executions>
                     </plugin>
