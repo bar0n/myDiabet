@@ -57,10 +57,6 @@ case class CarbonData(@BeanProperty time: LocalDateTime, @BeanProperty value: Do
 
   def getX: Int = {
     (time.toEpochSecond(ZoneOffset.ofTotalSeconds(0)) - init).toInt
-    //time.toEpochSecond(ZoneOffset.ofTotalSeconds(0))
-    /*    val in = new java.util.Date()
-        val ldt = LocalDateTime.ofInstant(in.toInstant(), ZoneId.systemDefault())
-        java.util.Date.from(ldt.atZone(ZoneId.systemDefault()).toInstant())*/
   }
 
 

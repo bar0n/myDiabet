@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -jar target/dependency/webapp-runner-8.0.30.1.jar  target/myDiabet.war
+web: java $JAVA_OPTS -jar target/dependency/webapp-runner-8.0.30.1.jar --port $PORT target/myDiabet.war
