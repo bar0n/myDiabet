@@ -8,16 +8,7 @@
 
 <ui:composition template="/templates/template.xhtml">
 
-    <h:outputStylesheet>
-        .top {
-            vertical-align: top;
-        }
 
-        .info {
-            height: 202px;
-            overflow: auto;
-        }
-    </h:outputStylesheet>
     <ui:define name="body">
 
 
@@ -35,19 +26,26 @@
        <!-- <link rel="stylesheet" type="text/css" href="resources/js/examples/examples.css" />
         <link type="text/css" rel="stylesheet" href="resources/js/examples/syntaxhighlighter/styles/shCoreDefault.min.css" />
         <link type="text/css" rel="stylesheet" href="resources/js/examples/syntaxhighlighter/styles/shThemejqPlot.min.css" />
--->
+-->   <a4j:region>
+        <h:form id="info">
 
-        <h:form>
+
             <rich:fileUpload fileUploadListener="#{fileUploadBean.listener}" id="upload" acceptedTypes=".xml"
                              ontyperejected="alert('Only XML files are accepted');" maxFilesQuantity="1" listHeight="1" immediateUpload="true" onclear="">
-                <a4j:ajax event="uploadcomplete" execute="@all" render="info,CorbonInfo,chartdiv,chartbar, chartData" oncomplete="draw();" />
+                <a4j:ajax event="uploadcomplete"   oncomplete="draw();" />
             </rich:fileUpload>
-        </h:form>
 
-        <a4j:region>
-            <h:form id="info">
 
-                <style type="text/css">
+                <h:outputStylesheet>
+                    .top {
+                        vertical-align: top;
+                    }
+
+                    .info {
+                        height: 202px;
+                        overflow: auto;
+                    }
+
                     .jqplot-target {
                         margin: 20px;
                         height: 340px;
@@ -69,10 +67,7 @@
                         padding: 7px;
                         color: #dddddd;
                     }
-
-
-
-                </style>
+                </h:outputStylesheet>
                 <h:panelGroup>
                 <div class="ui-widget ui-corner-all">
                     <div class="ui-widget-header ui-corner-top"></div>

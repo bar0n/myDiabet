@@ -73,11 +73,11 @@
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>2.6</version>
-                <configuration>
+               <!-- <configuration>
                     <warSourceDirectory>src/main/webapp</warSourceDirectory>
                     <warName>myDiabet</warName>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
-                </configuration>
+                </configuration>-->
 
 
 
@@ -212,7 +212,7 @@
         </dependency>
     </dependencies>
 
-    <profiles>
+   <!-- <profiles>
         <profile>
             <id>jee6</id>
             <build>
@@ -335,5 +335,5 @@
                 </plugins>
             </build>
         </profile>
-    </profiles>
+    </profiles>-->
 </project>
