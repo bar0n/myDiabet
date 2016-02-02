@@ -73,13 +73,28 @@
 
 
                 </style>
-
+                <h:panelGroup>
                 <div class="ui-widget ui-corner-all">
                     <div class="ui-widget-header ui-corner-top"></div>
                     <div class="ui-widget-content ui-corner-bottom" >
                         <div id="chart1" style="height:400px;width:1800px;"></div>
                     </div>
                 </div>
+
+                <!--<ui:repeat value="#{myChartBean.data.my}" var="record">
+                    ['#{record.label}', #{record.val}]<br/>
+                </ui:repeat>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <ui:repeat value="#{myChartBean.data.kiData}" var="record">
+                   ['#{record.label}', #{record.ki}]<br/>
+                </ui:repeat>-->
+
+
+
+                </h:panelGroup>
 
                 <h:outputScript id="chartData" >
                      var line1 =[];
