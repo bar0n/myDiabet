@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
@@ -70,7 +70,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>2.3.2</version>
             </plugin>
-            <plugin>
+            <!--<plugin>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>2.6</version>
                 <configuration>
@@ -78,6 +78,94 @@
                     <warName>myDiabet</warName>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
+            </plugin>-->
+
+            <plugin>
+                <groupId>net.alchim31.maven</groupId>
+                <artifactId>scala-maven-plugin</artifactId>
+                <version>3.2.0</version>
+                <configuration>
+                    <recompileMode>all</recompileMode>
+                    <useZincServer>false</useZincServer>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                    <jvmArgs>
+                        <jvmArg>-Xms256m</jvmArg>
+                        <jvmArg>-Xmx768m</jvmArg>
+                        <jvmArg>-XX:MaxPermSize=512m</jvmArg>
+                    </jvmArgs>
+                    <javacArgs>
+                        <javacArg>-Xlint:unchecked</javacArg>
+                        <javacArg>-Xlint:deprecation</javacArg>
+                    </javacArgs>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>scala-compile-first</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>scala-test-compile</id>
+                        <phase>process-test-resources</phase>
+                        <goals>
+                            <goal>testCompile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>jee6</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>war</goal>
+                        </goals>
+                        <configuration>
+                            <webappDirectory>${project.build.directory}/${project.build.finalName}-jee6
+                            </webappDirectory>
+                            <classifier>jee6</classifier>
+                            <packagingExcludes>WEB-INF/lib/javax.faces*</packagingExcludes>
+                            <warSourceExcludes>WEB-INF/lib/javax.faces*</warSourceExcludes>
+
+                            <warSourceDirectory>src/main/webapp</warSourceDirectory>
+                            <warName>myDiabet</warName>
+                            <failOnMissingWebXml>false</failOnMissingWebXml>
+                        </configuration>
+
+
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.3</version>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>com.github.jsimone</groupId>
+                                    <artifactId>webapp-runner</artifactId>
+                                    <version>8.0.30.1</version>
+                                    <destFileName>webapp-runner.jar</destFileName>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
 
             <!--<plugin>
@@ -123,6 +211,13 @@
     </dependencyManagement>
 
     <dependencies>
+
+        <dependency>
+            <groupId>com.github.jsimone</groupId>
+            <artifactId>webapp-runner</artifactId>
+            <version>8.0.30.1</version>
+        </dependency>
+
         <dependency>
             <groupId>org.scala-lang</groupId>
             <artifactId>scala-library</artifactId>
@@ -176,40 +271,8 @@
         </dependency>
     </dependencies>
 
-    <profiles>
-        <profile>
-            <id>jee6</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-war-plugin</artifactId>
-                        <configuration>
-                            <webappDirectory>${project.build.directory}/${project.build.finalName}-jee6</webappDirectory>
-                            <classifier>jee6</classifier>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
+   <!-- <profiles>
 
-            <dependencies>
-                <dependency>
-                    <groupId>javax.faces</groupId>
-                    <artifactId>javax.faces-api</artifactId>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.glassfish</groupId>
-                    <artifactId>javax.faces</artifactId>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>javax.transaction</groupId>
-                    <artifactId>jta</artifactId>
-                    <version>1.1</version>
-                    <scope>provided</scope>
-                </dependency>
-            </dependencies>
-        </profile>
         <profile>
             <id>release</id>
             <build>
@@ -261,7 +324,8 @@
                                     <goal>war</goal>
                                 </goals>
                                 <configuration>
-                                    <webappDirectory>${project.build.directory}/${project.build.finalName}-jee6</webappDirectory>
+                                    <webappDirectory>${project.build.directory}/${project.build.finalName}-jee6
+                                    </webappDirectory>
                                     <classifier>jee6</classifier>
                                     <packagingExcludes>WEB-INF/lib/javax.faces*</packagingExcludes>
                                     <warSourceExcludes>WEB-INF/lib/javax.faces*</warSourceExcludes>
@@ -272,17 +336,30 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-dependency-plugin</artifactId>
-                        <version>2.4</version>
+                        <version>2.3</version>
                         <executions>
                             <execution>
                                 <id>copy-dependencies</id>
                                 <phase>package</phase>
-                                <goals><goal>copy-dependencies</goal></goals>
+                                <goals>
+                                    <goal>copy-dependencies</goal>
+                                </goals>
+
+                                <configuration>
+                                    <artifactItems>
+                                        <artifactItem>
+                                            <groupId>com.github.jsimone</groupId>
+                                            <artifactId>webapp-runner</artifactId>
+                                            <version>8.0.30.1</version>
+                                            <destFileName>webapp-runner.jar</destFileName>
+                                        </artifactItem>
+                                    </artifactItems>
+                                </configuration>
                             </execution>
                         </executions>
                     </plugin>
                 </plugins>
             </build>
         </profile>
-    </profiles>
+    </profiles>-->
 </project>
