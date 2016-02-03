@@ -1,16 +1,18 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
-      xmlns:rich="http://richfaces.org/rich">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+>
 
-<body>
+<body onunload="draw()">
 
 <ui:composition template="/templates/template.xhtml">
 
 
     <ui:define name="body">
-
 
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script type="text/javascript" src="resources/js/jquery.jqplot.min.js"></script>
@@ -23,206 +25,208 @@
         <script type="text/javascript" src="resources/js/plugins/jqplot.highlighter.min.js"></script>
         <script type="text/javascript" src="resources/js/plugins/jqplot.pointLabels.min.js"></script>
 
-       <!-- <link rel="stylesheet" type="text/css" href="resources/js/examples/examples.css" />
-        <link type="text/css" rel="stylesheet" href="resources/js/examples/syntaxhighlighter/styles/shCoreDefault.min.css" />
-        <link type="text/css" rel="stylesheet" href="resources/js/examples/syntaxhighlighter/styles/shThemejqPlot.min.css" />
--->   <a4j:region>
+
         <h:form id="info">
 
 
-            <rich:fileUpload fileUploadListener="#{fileUploadBean.listener}" id="upload" acceptedTypes=".xml"
-                             ontyperejected="alert('Only XML files are accepted');" maxFilesQuantity="1" listHeight="1" immediateUpload="true" onclear="">
-                <a4j:ajax event="uploadcomplete"   oncomplete="draw();" />
-            </rich:fileUpload>
+            <a4j:region id="region">
+                <rich:fileUpload fileUploadListener="#{fileUploadBean.listener}" id="upload" acceptedTypes=".xml"
+                                 ontyperejected="alert('Only XML files are accepted');" maxFilesQuantity="1" listHeight="1" immediateUpload="true" onclear="">
+                    <a4j:ajax event="uploadcomplete" execute="@all" render="info, tableDataItems"  oncomplete="updateBlocksJs();" />
+                </rich:fileUpload>
 
-
-                <h:outputStylesheet>
-                    .top {
-                        vertical-align: top;
-                    }
-
-                    .info {
-                        height: 202px;
-                        overflow: auto;
-                    }
-
-                    .jqplot-target {
-                        margin: 20px;
-                        height: 340px;
-                        width: 600px;
-                        color: #dddddd;
-                    }
-
-                    .ui-widget-content {
-                        background: rgb(57,57,57);
-                    }
-
-                    table.jqplot-table-legend {
-                        border: 0px;
-                        background-color: rgba(100,100,100, 0.0);
-                    }
-
-                    .jqplot-highlighter-tooltip {
-                        background-color: rgba(57,57,57, 0.9);
-                        padding: 7px;
-                        color: #dddddd;
-                    }
-                </h:outputStylesheet>
                 <h:panelGroup>
-                <div class="ui-widget ui-corner-all">
-                    <div class="ui-widget-header ui-corner-top"></div>
-                    <div class="ui-widget-content ui-corner-bottom" >
-                        <div id="chart1" style="height:400px;width:1800px;"></div>
+                    <div class="ui-widget ui-corner-all">
+                        <div class="ui-widget-header ui-corner-top"></div>
+                        <div class="ui-widget-content ui-corner-bottom" >
+                            <div id="chart1" style="height:400px;width:1800px;"></div>
+                        </div>
                     </div>
-                </div>
-
-                <!--<ui:repeat value="#{myChartBean.data.my}" var="record">
-                    ['#{record.label}', #{record.val}]<br/>
-                </ui:repeat>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <ui:repeat value="#{myChartBean.data.kiData}" var="record">
-                   ['#{record.label}', #{record.ki}]<br/>
-                </ui:repeat>-->
-
 
 
                 </h:panelGroup>
 
-                <h:outputScript id="chartData" >
-                     var line1 =[];
-                    <ui:repeat value="#{myChartBean.data.my}" var="record">
-                        line1.push(['#{record.label}', #{record.val}]);
-                    </ui:repeat>
-                    var kiData = [];
-                    <ui:repeat value="#{myChartBean.data.kiData}" var="record">
-                        kiData.push(['#{record.label}', #{record.ki}]);
-                    </ui:repeat>
+                <!-- <a4j:jsFunction name="updateBlocksByRichFaces" render="tableDataItems"
+                                 limitRender="true" oncomplete="updateBlocksJs();" immediate="true" execute="tableDataItems"/>-->
 
-                     function draw(){
+                <a4j:outputPanel id="tableDataItems" ajaxRendered="true">
+
+                    <script type="text/javascript" >
 
 
-     $.jqplot("chart1", [line1, kiData], {
-        seriesColors: ["rgba(78, 135, 194, 0.7)", "rgb(211, 235, 59)"],
-        title: 'Дневник',
-        animateReplot: true,
-        animate: true,
-        highlighter: {
-            show: true,
-            sizeAdjust: 1,
-            tooltipOffset: 9
-        },
-       cursor: {
-            show: true,
-            zoom: true,
-            looseZoom: true,
-            showTooltip: false
-        },
-        grid: {
-            background: 'rgba(57,57,57,0.0)',
-            drawBorder: false,
-            shadow: false,
-            gridLineColor: '#666666',
-            gridLineWidth: 2
-        },
-        legend: {
-            show: true,
-            placement: 'outside'
-        },
-        seriesDefaults: {
-            rendererOptions: {
-                smooth: false,
-                animation: {
-                    show: true
-                }
-            },
-            showMarker: true
-        },
+                        function getData1() {
+                            var data1 = [];
+                            <ui:repeat value="#{myChartBean.data.my}" var="record">
+                                data1.push(['#{record.label}', #{record.val}]);
+                            </ui:repeat>;
+                            return data1;
+                        }
+                        function getData2() {
+                            var data2 = [];
+                            <a4j:repeat value="#{myChartBean.data.kiData}" id="kiData" var="rr" keepSaved="false"
+                                        rowKeyVar="index">
+                                data2.push(['#{rr.label}', #{rr.ki}]);
+                            </a4j:repeat>;
 
-        series: [
-            {
-                fill: true,
-                label: 'сахар'
-            },
-            {
-                label: 'инсулин',
-                pointLabels: {
-                    show: true
-                },
-                renderer: $.jqplot.BarRenderer,
-                showHighlight: false,
-                yaxis: 'y2axis',
-                rendererOptions: {
-                    // Speed up the animation a little bit.
-                    // This is a number of milliseconds.
-                    // Default for bar series is 3000.
-                    animation: {
-                        speed: 2500
-                    },
-                    barWidth: 15,
-                    barPadding: -15,
-                    barMargin: 0,
-                    highlightMouseOver: false
-                }
+                            return data2;
+                        }
+                    </script>
+                </a4j:outputPanel>
+
+                <script type="text/javascript" id="updateBlocksJs">
+                    function updateBlocksJs() {
+                        var line1 = getData1();
+                        var kiData = getData2();
+                        console.log('draw ');
+                        $.jqplot("chart1", [line1, kiData], {
+                            seriesColors: ["rgba(78, 135, 194, 0.7)", "rgb(211, 235, 59)"],
+                            title: 'Дневник',
+                            animateReplot: true,
+                            animate: true,
+                            highlighter: {
+                                show: true,
+                                sizeAdjust: 1,
+                                tooltipOffset: 9
+                            },
+                            cursor: {
+                                show: true,
+                                zoom: true,
+                                looseZoom: true,
+                                showTooltip: false
+                            },
+                            grid: {
+                                background: 'rgba(57,57,57,0.0)',
+                                drawBorder: false,
+                                shadow: false,
+                                gridLineColor: '#666666',
+                                gridLineWidth: 2
+                            },
+                            legend: {
+                                show: true,
+                                placement: 'outside'
+                            },
+                            seriesDefaults: {
+                                rendererOptions: {
+                                    smooth: false,
+                                    animation: {
+                                        show: true
+                                    }
+                                },
+                                showMarker: true
+                            },
+
+                            series: [
+                                {
+                                    fill: true,
+                                    label: 'сахар'
+                                },
+                                {
+                                    label: 'инсулин',
+                                    pointLabels: {
+                                        show: true
+                                    },
+                                    renderer: $.jqplot.BarRenderer,
+                                    showHighlight: false,
+                                    yaxis: 'y2axis',
+                                    rendererOptions: {
+                                        // Speed up the animation a little bit.
+                                        // This is a number of milliseconds.
+                                        // Default for bar series is 3000.
+                                        animation: {
+                                            speed: 2500
+                                        },
+                                        barWidth: 15,
+                                        barPadding: -15,
+                                        barMargin: 0,
+                                        highlightMouseOver: false
+                                    }
+                                }
+                            ],
+                            axesDefaults: {
+                                rendererOptions: {
+                                    baselineWidth: 1.5,
+                                    baselineColor: '#444444',
+                                    drawBaseline: false
+                                }
+                            },
+                            axes: {
+                                xaxis: {
+                                    renderer: $.jqplot.DateAxisRenderer,
+                                    tickRenderer: $.jqplot.CanvasAxisTickRenderer,
+                                    tickOptions: {
+                                        formatString: "%b %e %H:%M",
+                                        angle: -30,
+                                        textColor: '#dddddd'
+                                    },
+                                    tickInterval: "4 hours",
+                                    drawMajorGridlines: false
+                                },
+                                yaxis: {
+                                    renderer: $.jqplot.LogAxisRenderer,
+                                    pad: 0,
+                                    rendererOptions: {
+                                        minorTicks: 1
+                                    },
+                                    tickOptions: {
+                                        formatString: "%.2f",
+                                        showMark: false
+                                    }
+                                },
+                                y2axis: {
+                                    tickOptions: {
+                                        formatString: "%.2f ед"
+                                    },
+                                    rendererOptions: {
+                                        // align the ticks on the y2 axis with the y axis.
+                                        alignTicks: true,
+                                        forceTickAt0: true
+                                    }
+                                }
+                            }
+                        });
+
+                        $('.jqplot-highlighter-tooltip').addClass('ui-corner-all');
+                    }
+                    $(document).ready(updateBlocksJs());
+                </script>
+
+            </a4j:region>
+        </h:form>
+        <h:outputStylesheet>
+            .top {
+                vertical-align: top;
             }
-        ],
-        axesDefaults: {
-            rendererOptions: {
-                baselineWidth: 1.5,
-                baselineColor: '#444444',
-                drawBaseline: false
+
+            .info {
+                height: 202px;
+                overflow: auto;
             }
-        },
-        axes: {
-            xaxis: {
-                renderer: $.jqplot.DateAxisRenderer,
-                tickRenderer: $.jqplot.CanvasAxisTickRenderer,
-                tickOptions: {
-                    formatString: "%b %e %H:%M",
-                    angle: -30,
-                    textColor: '#dddddd'
-                },
-                tickInterval: "4 hours",
-                drawMajorGridlines: false
-            },
-            yaxis: {
-                renderer: $.jqplot.LogAxisRenderer,
-                pad: 0,
-                rendererOptions: {
-                    minorTicks: 1
-                },
-                tickOptions: {
-                    formatString: "%.2f",
-                    showMark: false
-                }
-            },
-             y2axis: {
-                tickOptions: {
-                    formatString: "%.2f ед"
-                },
-                rendererOptions: {
-                    // align the ticks on the y2 axis with the y axis.
-                    alignTicks: true,
-                    forceTickAt0: true
-                }
+
+            .jqplot-target {
+                margin: 20px;
+                height: 340px;
+                width: 600px;
+                color: #dddddd;
             }
-        }
-    });
 
-      $('.jqplot-highlighter-tooltip').addClass('ui-corner-all')
+            .ui-widget-content {
+                background: rgb(57,57,57);
+            }
 
+            table.jqplot-table-legend {
+                border: 0px;
+                background-color: rgba(100,100,100, 0.0);
+            }
 
-                     }
-                    draw();
-                </h:outputScript>
+            .jqplot-highlighter-tooltip {
+                background-color: rgba(57,57,57, 0.9);
+                padding: 7px;
+                color: #dddddd;
+            }
+        </h:outputStylesheet>
 
-            </h:form>
-        </a4j:region>
     </ui:define>
 </ui:composition>
-
 
 </body>
 </html>

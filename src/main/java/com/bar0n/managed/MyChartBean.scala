@@ -18,8 +18,12 @@ class MyChartBean extends Serializable {
   @ManagedProperty(value = "#{fileUploadBean}")
   @BeanProperty var fileUploadBean: FileUploadBean = null
 
+  private var sk1: SK = _
+
   def getData = {
 
+    /*if (sk1 != null) sk1
+    else {*/
     val datas: mutable.Buffer[CarbonData] = if (fileUploadBean.getDataType != null) {
       val s: SECTIONRECORDSType = fileUploadBean.getDataType.getSECTIONRECORDS
       import scala.collection.JavaConversions._
@@ -32,15 +36,18 @@ class MyChartBean extends Serializable {
         val time: LocalDateTime = LocalDateTime.parse(record.getDate + " " + record.getTime, pattern)
         val decimal = new java.lang.Double(record.getSk1)
         val ki = new java.lang.Double(record.getKi)
-        CarbonData(time, decimal, init,ki)
+        CarbonData(time, decimal, init, ki)
       })
       map
     }
     else {
-      val datas1: mutable.Buffer[CarbonData] = mutable.Buffer[CarbonData](CarbonData(LocalDateTime.now(), 1, 1,1))
+      val datas1: mutable.Buffer[CarbonData] = mutable.Buffer[CarbonData](CarbonData(LocalDateTime.now(), 1, 1, 1))
       datas1
     }
-    SK("Accu Check", datas.filter(x => x.getVal != 0).sortBy(x => x.getX),datas.filter(x => x.ki != 0).sortBy(x => x.getX))
+    val sk: SK = SK("Accu Check", datas.filter(x => x.getVal != 0).sortBy(x => x.getX), datas.filter(x => x.ki != 0).sortBy(x => x.getX))
+    sk1 = sk
+    sk1
+    //  }
   }
 }
 
