@@ -32,7 +32,7 @@
             <a4j:region id="region">
                 <rich:fileUpload fileUploadListener="#{fileUploadBean.listener}" id="upload" acceptedTypes=".xml"
                                  ontyperejected="alert('Only XML files are accepted');" maxFilesQuantity="1" listHeight="1" immediateUpload="true" onclear="">
-                    <a4j:ajax event="uploadcomplete" execute="@all" render="info, tableDataItems"  oncomplete="updateBlocksJs();" />
+                    <a4j:ajax event="uploadcomplete" execute="@all" render="info, tableDataItems"  oncomplete="updateBlocksByRichFaces();" />
                 </rich:fileUpload>
 
                 <h:panelGroup>
@@ -46,8 +46,8 @@
 
                 </h:panelGroup>
 
-                <!-- <a4j:jsFunction name="updateBlocksByRichFaces" render="tableDataItems"
-                                 limitRender="true" oncomplete="updateBlocksJs();" immediate="true" execute="tableDataItems"/>-->
+                 <a4j:jsFunction name="updateBlocksByRichFaces" render="tableDataItems"
+                                 limitRender="true" oncomplete="updateBlocksJs();" immediate="true" execute="tableDataItems"/>
 
                 <a4j:outputPanel id="tableDataItems" ajaxRendered="true">
 
