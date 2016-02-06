@@ -2,7 +2,7 @@ package com.bar0n.managed
 
 import java.time.format.DateTimeFormatter
 import java.time.{LocalDateTime, ZoneOffset}
-import javax.faces.bean.{ManagedBean, ManagedProperty, ViewScoped}
+import javax.faces.bean.{RequestScoped, ManagedBean, ManagedProperty, ViewScoped}
 
 import model.SECTIONRECORDSType
 
@@ -10,10 +10,10 @@ import scala.beans.BeanProperty
 import scala.collection.mutable
 
 /**
-  * Created by dbaron 
+  * Created by dbaron
   */
 @ManagedBean
-@ViewScoped
+@RequestScoped
 class MyChartBean extends Serializable {
   @ManagedProperty(value = "#{fileUploadBean}")
   @BeanProperty var fileUploadBean: FileUploadBean = null
@@ -49,6 +49,17 @@ class MyChartBean extends Serializable {
     sk1
     //  }
   }
+  def getData1:String={
+    import scala.collection.JavaConversions._
+    getData.getMy.map(x=>x.getLabel+","+x.value).mkString(";")
+  }
+
+  def getData2:String={
+    import scala.collection.JavaConversions._
+    getData.getkiData.map(x=>x.getLabel+","+x.ki+"]").mkString(";")
+  }
+  def setData1(s:String)={}
+  def setData2(s:String)={}
 }
 
 case class SK(@BeanProperty name: String, @BeanProperty data: mutable.Buffer[CarbonData],kiData: mutable.Buffer[CarbonData]) {

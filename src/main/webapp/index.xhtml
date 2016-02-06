@@ -46,37 +46,33 @@
 
                 </h:panelGroup>
 
-                 <a4j:jsFunction name="updateBlocksByRichFaces" render="tableDataItems"
-                                 limitRender="true" oncomplete="updateBlocksJs();" immediate="true" execute="tableDataItems"/>
+                <a4j:jsFunction name="updateBlocksByRichFaces" render="tableDataItems"
+                                limitRender="true" oncomplete="updateBlocksJs();" immediate="true" execute="tableDataItems"/>
 
                 <a4j:outputPanel id="tableDataItems" ajaxRendered="true">
 
+                    <h:inputHidden value="#{myChartBean.data1}" id="hiddenID1" />
+                    <h:inputHidden value="#{myChartBean.data2}" id="hiddenID2" />
                     <script type="text/javascript" >
 
-
-                        function getData1() {
-                            var data1 = [];
-                            <ui:repeat value="#{myChartBean.data.my}" var="record">
-                                data1.push(['#{record.label}', #{record.val}]);
-                            </ui:repeat>;
-                            return data1;
+                        function getData(s) {
+                            var arr = s.split(';').map(function(n) {
+                                var values =  n.split(',');
+                                var data = [];
+                                data.push(values[0]);
+                                data.push(parseFloat(values[1]));
+                                return data;
+                            });
+                            return arr;
                         }
-                        function getData2() {
-                            var data2 = [];
-                            <a4j:repeat value="#{myChartBean.data.kiData}" id="kiData" var="rr" keepSaved="false"
-                                        rowKeyVar="index">
-                                data2.push(['#{rr.label}', #{rr.ki}]);
-                            </a4j:repeat>;
 
-                            return data2;
-                        }
                     </script>
                 </a4j:outputPanel>
 
                 <script type="text/javascript" id="updateBlocksJs">
                     function updateBlocksJs() {
-                        var line1 = getData1();
-                        var kiData = getData2();
+                        var line1 = getData(document.getElementById('info:hiddenID1').value);
+                        var kiData = getData(document.getElementById('info:hiddenID2').value);
                         console.log('draw ');
                         $.jqplot("chart1", [line1, kiData], {
                             seriesColors: ["rgba(78, 135, 194, 0.7)", "rgb(211, 235, 59)"],
